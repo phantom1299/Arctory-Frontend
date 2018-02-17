@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,11 +89,50 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         val titleTextView = TextView(this.context)
 
         val maxFeeSeekBarTextView = TextView(this.context)
+        maxFeeSeekBarTextView.setPadding(0, 0, 0, 50)
         val maxFeeSeekBar = SeekBar(this.context)
+        val maxFeeSeekBarValueTextView = TextView(this.context)
         maxFeeSeekBar.progress = Math.round(currentMaxFee / MAX_FEE * 100).toInt()
 
         val maxDistanceSeekBarTextView = TextView(this.context)
+        maxDistanceSeekBarTextView.setPadding(0, 0, 0, 50)
         val maxDistanceSeekBar = SeekBar(this.context)
+        val maxDistanceSeekBarValueTextView = TextView(this.context)
+
+        maxDistanceSeekBarValueTextView.gravity = Gravity.CENTER
+        maxDistanceSeekBarValueTextView.textSize = 20.0f
+        maxDistanceSeekBarValueTextView.text = currentMaxDistance.toString() + " m"
+        maxDistanceSeekBarValueTextView.setPadding(0, 0, 0, 50)
+
+        maxFeeSeekBarValueTextView.gravity = Gravity.CENTER
+        maxFeeSeekBarValueTextView.textSize = 20.0f
+        maxFeeSeekBarValueTextView.text = currentMaxFee.toString() + " ₺"
+        maxFeeSeekBarValueTextView.setPadding(0, 0, 0, 50)
+
+        maxDistanceSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                maxDistanceSeekBarValueTextView.text = (p1 * (MAX_DISTANCE / maxDistanceSeekBar.max)).toInt().toString() + """ m"""
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+            }
+        })
+
+        maxFeeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                maxFeeSeekBarValueTextView.text = (p1 * (MAX_FEE / maxDistanceSeekBar.max)).toInt().toString() + " ₺"
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+            }
+        })
+
         maxDistanceSeekBar.progress = Math.round(currentMaxDistance / MAX_DISTANCE * 100).toInt()
 
         val genderPrefTextView = TextView(this.context)
@@ -134,8 +174,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         linear.addView(titleTextView)
         linear.addView(maxFeeSeekBarTextView)
         linear.addView(maxFeeSeekBar)
+        linear.addView(maxFeeSeekBarValueTextView)
         linear.addView(maxDistanceSeekBarTextView)
         linear.addView(maxDistanceSeekBar)
+        linear.addView(maxDistanceSeekBarValueTextView)
         linear.addView(genderPrefTextView)
         linear.addView(genderSpinner)
         linear.addView(languagePrefTextView)
