@@ -48,9 +48,23 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         val v: View = inflater!!.inflate(R.layout.fragment_home, container, false)
 
         val filterButton = v.findViewById<FloatingActionButton>(R.id.filterFabButton)
+        val myLocationButton = v.findViewById<FloatingActionButton>(R.id.showMyLocation)
 
         filterButton.setOnClickListener {
             showFilterAlertDialog()
+        }
+
+        myLocationButton.setOnClickListener {
+            map!!.animateCamera(
+                    CameraUpdateFactory
+                            .newLatLngZoom(
+                                    LatLng(
+                                            STUDENT_LOCATION.get(0),
+                                            STUDENT_LOCATION.get(1)
+                                    ),
+                                    15.0f
+                            )
+            )
         }
 
         return v
