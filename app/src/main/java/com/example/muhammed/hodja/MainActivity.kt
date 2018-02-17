@@ -1,13 +1,15 @@
 package com.example.muhammed.hodja
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.example.muhammed.hodja.fragments.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -57,28 +59,44 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
-        }
+        val id = item.itemId
+        loadFragment(id)
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    // This method will take a fragment and add/replace
+    // that fragment to the activity
+    private fun fragmentTransaction(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit()
+    }
+
+    // This method will load fragment based on
+    // the menu id
+    private fun loadFragment(menuId: Int) {
+        var fragment: Fragment = HomeFragment()
+        when (menuId) {
+            R.id.nav_home -> {
+                // Handle the home action
+                fragment = HomeFragment()
+            }
+            R.id.nav_myStudents -> {
+
+            }
+            R.id.nav_chats -> {
+
+            }
+            R.id.nav_settings -> {
+
+            }
+            R.id.nav_help -> {
+
+            }
+        }
+        // Fragment Transaction
+        fragmentTransaction(fragment)
     }
 }
