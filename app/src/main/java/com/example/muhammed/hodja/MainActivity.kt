@@ -1,6 +1,5 @@
 package com.example.muhammed.hodja
 
-import android.app.Fragment
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -24,6 +23,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
+        val homeFragment = HomeFragment()
+        val manager = supportFragmentManager
+        manager.beginTransaction().replace(R.id.mainLayout, homeFragment).commit()
+
         nav_view.setNavigationItemSelectedListener(this)
     }
 
@@ -37,7 +40,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
@@ -58,14 +60,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
-    }
-
-    // This method will take a fragment and add/replace
-    // that fragment to the activity
-    private fun fragmentTransaction(fragment: Fragment) {
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit()
     }
 
     // This method will load fragment based on

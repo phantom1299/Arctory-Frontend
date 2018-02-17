@@ -1,103 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:orientation="vertical">
+    android:layout_height="match_parent"
+    android:layout_weight="1">
 
-
-    <TextView
-        android:id="@+id/dialogTitle"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView"
-        tools:text="Filtreler" />
+        android:layout_margin="20sp"
+        android:orientation="vertical"
+        tools:orientation="vertical">
 
-    <TextView
-        android:id="@+id/maxFeeLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16sp"
+            android:layout_marginTop="16sp"
+            android:layout_weight="1"
+            android:text="@string/filters"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            tools:text="Filtreler" />
 
-    <SeekBar
-        android:id="@+id/maxFeeSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        <TextView
+            android:id="@+id/maxFeeLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8sp"
+            android:layout_marginTop="20sp"
+            android:layout_weight="1"
+            android:text="@string/maxFee"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/maxFeeValueLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        <SeekBar
+            android:id="@+id/maxFeeSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/maxDistanceLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/maxFeeValueLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8sp"
+            android:layout_marginTop="20sp"
+            android:layout_weight="1"
+            android:text="0 ₺"
+            android:textAlignment="center" />
 
-    <SeekBar
-        android:id="@+id/maxDistanceSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        <TextView
+            android:id="@+id/maxDistanceLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/maxDistance"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/maxDistanceValueLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        <SeekBar
+            android:id="@+id/maxDistanceSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/genderLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/maxDistanceValueLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8sp"
+            android:layout_weight="1"
+            android:text="0 m"
+            android:textAlignment="center" />
 
-    <Spinner
-        android:id="@+id/genderSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        <TextView
+            android:id="@+id/genderLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:layout_marginTop="20sp"
+            android:layout_weight="1"
+            android:text="@string/gender" />
 
-    <TextView
-        android:id="@+id/languageLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        <Spinner
+            android:id="@+id/genderSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/genders"
+            android:textSize="20sp" />
 
-    <Spinner
-        android:id="@+id/languageSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        <TextView
+            android:id="@+id/languageLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:layout_marginTop="20sp"
+            android:layout_weight="1"
+            android:text="@string/language" />
 
-    <TextView
-        android:id="@+id/meetingPointLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        <Spinner
+            android:id="@+id/languageSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/languages"
+            android:textSize="20sp" />
 
-    <Spinner
-        android:id="@+id/meetingPointSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        <TextView
+            android:id="@+id/meetingPointLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:layout_marginTop="20sp"
+            android:layout_weight="1"
+            android:text="@string/meetingPoint" />
 
-    <Button
-        android:id="@+id/filterButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Button" />
-</LinearLayout>
+        <Spinner
+            android:id="@+id/meetingPointSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/meetingPoints"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/filterButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30sp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/filter"
+            android:textColor="@color/cardview_light_background" />
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

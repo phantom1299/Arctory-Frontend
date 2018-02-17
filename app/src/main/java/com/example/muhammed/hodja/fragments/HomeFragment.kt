@@ -12,6 +12,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.SeekBar
+import android.widget.Spinner
 import android.widget.TextView
 import com.example.muhammed.hodja.R
 import com.example.muhammed.hodja.objects.Lesson
@@ -43,6 +45,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     var currentMaxFee: Double = MAX_FEE
     lateinit var v: View
 
+    var genderSpinnerPosition: Int = 0
+    var languageSpinnerPosition: Int = 0
+    var meetingPointSpinnerPosition: Int = 0
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -64,7 +70,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                                             STUDENT_LOCATION.get(0),
                                             STUDENT_LOCATION.get(1)
                                     ),
-                                    15.0f
+                                    12.0f
                             )
             )
         }
@@ -77,141 +83,99 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         val alert = AlertDialog.Builder(this@HomeFragment.context).create()
 
+        val maxFeeValueLabel = dialogView.findViewById<TextView>(R.id.maxFeeValueLabel)
+        maxFeeValueLabel.text = "$currentMaxFee ₺"
+
+        val maxDistanceValueLabel = dialogView.findViewById<TextView>(R.id.maxDistanceValueLabel)
+        maxDistanceValueLabel.text = "$currentMaxDistance ₺"
+
+        val maxFeeSeekBar = dialogView.findViewById<SeekBar>(R.id.maxFeeSeekBar)
+        maxFeeSeekBar.progress = Math.round(currentMaxFee / MAX_FEE * 100).toInt()
+
+        val maxDistanceSeekBar = dialogView.findViewById<SeekBar>(R.id.maxDistanceSeekBar)
+        maxDistanceSeekBar.progress = Math.round(currentMaxDistance / MAX_DISTANCE * 100).toInt()
+
+        maxFeeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                maxFeeValueLabel.text = (p1 * (MAX_DISTANCE / maxFeeSeekBar.max)).toInt().toString() + " ₺"
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+            }
+        })
+
+        maxDistanceSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                maxDistanceValueLabel.text = (p1 * (MAX_DISTANCE / maxDistanceSeekBar.max)).toInt().toString() + " m"
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+            }
+        })
+
+        val genderSpinner = dialogView.findViewById<Spinner>(R.id.genderSpinner)
+        val languageSpinner = dialogView.findViewById<Spinner>(R.id.languageSpinner)
+        val meetingPointSpinner = dialogView.findViewById<Spinner>(R.id.meetingPointSpinner)
+
+        genderSpinner.setSelection(genderSpinnerPosition)
+        languageSpinner.setSelection(languageSpinnerPosition)
+        meetingPointSpinner.setSelection(meetingPointSpinnerPosition)
+
         dialogView.findViewById<Button>(R.id.filterButton).setOnClickListener {
             alert.dismiss()
+            val maxFee = maxFeeSeekBar.progress * (MAX_FEE / maxFeeSeekBar.max)
+            val maxDistance = maxDistanceSeekBar.progress * (MAX_DISTANCE / maxDistanceSeekBar.max)
+            currentMaxFee = maxFee
+            currentMaxDistance = maxDistance
+
+            // Set gender pref for URL by selection
+            var genders = ""
+            genderSpinnerPosition = genderSpinner.selectedItemPosition
+            when (genderSpinnerPosition) {
+                0 -> genders = "[\"Male\", \"Female\"]"
+                1 -> genders = "[\"Male\"]"
+                2 -> genders = "[\"Female\"]"
+            }
+
+            // Set language pref for url
+
+            languageSpinnerPosition = languageSpinner.selectedItemPosition
+            val language = getLanguageCodeByPosition(languageSpinnerPosition)
+
+            // Set meetingPoints pref for URL query param
+            var meetingPoints = ""
+            meetingPointSpinnerPosition = meetingPointSpinner.selectedItemPosition
+            when (meetingPointSpinnerPosition) {
+                0 -> meetingPoints = "[\"student\", \"teacher\"]"
+                1 -> meetingPoints = "[\"teacher\"]"
+                2 -> meetingPoints = "[\"student\"]"
+            }
+
+            getData(maxFee, maxDistance, genders, meetingPoints, language)
         }
 
         alert.setView(dialogView)
         alert.show()
     }
 
-    /*
-        fun configureFilterAlertDialog(): AlertDialog {
-            val alert = AlertDialog.Builder(this@HomeFragment.context).create()
+    fun getLanguageCodeByPosition(position: Int): String {
+        var code = ""
 
-            alert.setView(R.layout.abc_action_bar_title_item)
-
-            //alert.setTitle("Filtrele")
-
-            val linear = LinearLayout(this.context)
-
-            linear.orientation = LinearLayout.VERTICAL
-            linear.setPadding(50,50,50,50)
-
-            val titleTextView = TextView(this.context)
-
-            val maxFeeSeekBarTextView = TextView(this.context)
-            maxFeeSeekBarTextView.setPadding(0, 0, 0, 50)
-            val maxFeeSeekBar = SeekBar(this.context)
-            val maxFeeSeekBarValueTextView = TextView(this.context)
-            maxFeeSeekBar.progress = Math.round(currentMaxFee / MAX_FEE * 100).toInt()
-
-            val maxDistanceSeekBarTextView = TextView(this.context)
-            maxDistanceSeekBarTextView.setPadding(0, 0, 0, 50)
-            val maxDistanceSeekBar = SeekBar(this.context)
-            val maxDistanceSeekBarValueTextView = TextView(this.context)
-
-            maxDistanceSeekBarValueTextView.gravity = Gravity.CENTER
-            maxDistanceSeekBarValueTextView.textSize = 20.0f
-            maxDistanceSeekBarValueTextView.text = currentMaxDistance.toString() + " m"
-            maxDistanceSeekBar.setPadding(50, 20, 50, 0)
-
-            maxFeeSeekBarValueTextView.gravity = Gravity.CENTER
-            maxFeeSeekBarValueTextView.textSize = 20.0f
-            maxFeeSeekBarValueTextView.text = currentMaxFee.toString() + " ₺"
-            maxFeeSeekBar.setPadding(50, 20, 50, 0)
-
-            maxDistanceSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                    maxDistanceSeekBarValueTextView.text = (p1 * (MAX_DISTANCE / maxDistanceSeekBar.max)).toInt().toString() + """ m"""
-                }
-
-                override fun onStartTrackingTouch(p0: SeekBar?) {
-                }
-
-                override fun onStopTrackingTouch(p0: SeekBar?) {
-                }
-            })
-
-            maxFeeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                    maxFeeSeekBarValueTextView.text = (p1 * (MAX_FEE / maxDistanceSeekBar.max)).toInt().toString() + " ₺"
-                }
-
-                override fun onStartTrackingTouch(p0: SeekBar?) {
-                }
-
-                override fun onStopTrackingTouch(p0: SeekBar?) {
-                }
-            })
-
-            maxDistanceSeekBar.progress = Math.round(currentMaxDistance / MAX_DISTANCE * 100).toInt()
-
-            val genderPrefTextView = TextView(this.context)
-            val genderSpinner = Spinner(this.context)
-
-            val languagePrefTextView = TextView(this.context)
-            val languageSpinner = Spinner(this.context)
-
-            val meetingPointPrefTextView = TextView(this.context)
-            val meetingPointSpinner = Spinner(this.context)
-
-            configureFilterAlertDialogPrefTextView(titleTextView, "Filreler", true)
-            configureFilterAlertDialogPrefTextView(maxFeeSeekBarTextView, "Maksimum Ücret")
-            configureFilterAlertDialogPrefTextView(maxDistanceSeekBarTextView, "Maksimum Mesafe")
-            configureFilterAlertDialogPrefTextView(genderPrefTextView, "Cinsiyet")
-            configureFilterAlertDialogPrefTextView(languagePrefTextView, "Dil")
-            configureFilterAlertDialogPrefTextView(meetingPointPrefTextView, "Buluşma Noktası")
-
-            val genders = ArrayList<String>()
-            val languages = ArrayList<String>()
-            val meetingPoints = ArrayList<String>()
-
-            genders.add("Farketmez")
-            genders.add("Erkek")
-            genders.add("Kadın")
-
-            languages.add("Farketmez")
-            languages.add("Türkçe")
-            languages.add("İngilizce")
-
-            meetingPoints.add("Farketmez")
-            meetingPoints.add("Öğretmen")
-            meetingPoints.add("Öğrenci")
-
-            genderSpinner.adapter = ArrayAdapter<String>(this.context, android.R.layout.simple_spinner_dropdown_item, genders)
-            languageSpinner.adapter = ArrayAdapter<String>(this.context, android.R.layout.simple_spinner_dropdown_item, languages)
-            meetingPointSpinner.adapter = ArrayAdapter<String>(this.context, android.R.layout.simple_spinner_dropdown_item, meetingPoints)
-
-            linear.addView(titleTextView)
-            linear.addView(maxFeeSeekBarTextView)
-            linear.addView(maxFeeSeekBar)
-            linear.addView(maxFeeSeekBarValueTextView)
-            linear.addView(maxDistanceSeekBarTextView)
-            linear.addView(maxDistanceSeekBar)
-            linear.addView(maxDistanceSeekBarValueTextView)
-            linear.addView(genderPrefTextView)
-            linear.addView(genderSpinner)
-            linear.addView(languagePrefTextView)
-            linear.addView(languageSpinner)
-            linear.addView(meetingPointPrefTextView)
-            linear.addView(meetingPointSpinner)
-
-            alert.setView(linear)
-
-            alert.setButton(AlertDialog.BUTTON_POSITIVE, "Filtrele", { dialogInterface, i ->
-
-                // Calculate max fee and max distance
-                val maxFee = maxFeeSeekBar.progress * (MAX_FEE / maxFeeSeekBar.max)
-                val maxDistance = maxDistanceSeekBar.progress * (MAX_DISTANCE / maxDistanceSeekBar.max)
-                currentMaxFee = maxFee
-                currentMaxDistance = maxDistance
-                getData(maxFee, maxDistance)
-            })
-
-            return alert
+        when (position) {
+            0 -> code = "tr"
+            1 -> code = "en"
+            2 -> code = "de"
         }
-    */
+
+        return code
+    }
+
     fun configureFilterAlertDialogPrefTextView(textView: TextView, value: String, title: Boolean = false) {
         textView.text = value
 
@@ -247,7 +211,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         map!!.addMarker(option)
         map!!.moveCamera(CameraUpdateFactory.newLatLng(pp))
-        map!!.animateCamera(CameraUpdateFactory.newLatLngZoom(pp, 15.0f))
+        map!!.animateCamera(CameraUpdateFactory.newLatLngZoom(pp, 12.0f))
 
         getData()
     }
@@ -306,7 +270,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
             option
                     .position(lesson.teacher!!.location!!)
-                    .title(lesson.teacher!!.name!!)
+                    .title(lesson.teacher!!.name)
                     .icon(BitmapDescriptorFactory.fromBitmap(getBitmapResized(R.drawable.teacher_map_icon, 200, 200)))
                     .snippet(lesson.name)
 
