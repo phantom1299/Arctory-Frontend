@@ -1,9 +1,9 @@
 package com.example.muhammed.hodja
 
+import android.app.Fragment
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // This method will take a fragment and add/replace
     // that fragment to the activity
     private fun fragmentTransaction(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
+        fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit()
     }
@@ -77,11 +77,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // This method will load fragment based on
     // the menu id
     private fun loadFragment(menuId: Int) {
-        var fragment: Fragment = HomeFragment()
         when (menuId) {
             R.id.nav_home -> {
                 // Handle the home action
-                fragment = HomeFragment()
+                val homeFragment = HomeFragment()
+                val manager = supportFragmentManager
+                manager.beginTransaction().replace(R.id.mainLayout, homeFragment).commit()
             }
             R.id.nav_myStudents -> {
 
@@ -96,7 +97,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
         }
-        // Fragment Transaction
-        fragmentTransaction(fragment)
     }
 }
