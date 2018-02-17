@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY apiUrl "https://hodja-backend.herokuapp.com">]>
+<resources>
+    <string name="lessonsUrl" translatable="false">&apiUrl;/lessons</string>
+</resources>
