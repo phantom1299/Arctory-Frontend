@@ -1,9 +1,10 @@
 package com.example.muhammed.hodja.fragments
 
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -46,14 +48,29 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+
         val pp = LatLng(41.080930, 29.030098)
+
         val option = MarkerOptions()
-        option.position(pp).title("Başlangıç")
+
+        option
+                .position(pp)
+                .title("Başlangıç")
+                .icon(BitmapDescriptorFactory.fromBitmap(getBitmapResized(R.drawable.student_map_icon, 200, 200)))
+
         map!!.addMarker(option)
         map!!.moveCamera(CameraUpdateFactory.newLatLng(pp))
         map!!.animateCamera(CameraUpdateFactory.newLatLngZoom(pp, 15.0f))
-        Log.d("Result", "Here")
+
         getData()
+    }
+
+    fun getBitmapResized(resourceId: Int, width: Int, height: Int): Bitmap {
+        var bitmap = BitmapFactory.decodeResource(resources, resourceId)
+
+        var resizedBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false)
+
+        return resizedBitmap
     }
 
     fun getData() {
@@ -86,10 +103,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             val teacherName = teacherObj.get("name") as String
             val location = LatLng(lat, long)
 
-
-
             option = MarkerOptions()
-            option.position(location).title(teacherName)
+
+            option
+                    .position(location)
+                    .title(teacherName)
+                    .icon(BitmapDescriptorFactory.fromBitmap(getBitmapResized(R.drawable.teacher_map_icon, 200, 200)))
+
             map!!.addMarker(option)
         }
     }
