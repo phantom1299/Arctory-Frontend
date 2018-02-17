@@ -2,6 +2,7 @@ package com.example.muhammed.hodja.fragments
 
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -16,6 +17,7 @@ import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TextView
 import com.example.muhammed.hodja.R
+import com.example.muhammed.hodja.UserDetailsActivity
 import com.example.muhammed.hodja.objects.Lesson
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.android.extension.responseJson
@@ -198,7 +200,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-        map!!.setOnInfoWindowClickListener { marker -> marker.id }
+        map!!.setOnInfoWindowClickListener { marker ->
+            val intent = Intent(this@HomeFragment.context, UserDetailsActivity::class.java)
+
+            intent.putExtra("_id", marker.tag as String)
+
+            startActivity(intent)
+        }
 
         val pp = LatLng(STUDENT_LOCATION.get(0), STUDENT_LOCATION.get(1))
 
@@ -274,7 +282,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     .icon(BitmapDescriptorFactory.fromBitmap(getBitmapResized(R.drawable.teacher_map_icon, 200, 200)))
                     .snippet(lesson.name)
 
-            map!!.addMarker(option)
+            val marker = map!!.addMarker(option)
+
+            marker.tag = lesson.teacher!!._id
         }
     }
 
