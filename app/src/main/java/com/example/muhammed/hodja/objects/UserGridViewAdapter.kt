@@ -66,8 +66,11 @@ class UserGridViewAdapter(
 
         viewHolder.acceptButton?.setOnClickListener {
             // Application kabul etme isteğini burada gönder
-            Fuel.put(activity.getString(R.string.applicationsUrl) + "/$applicationId")
-                    .body("{ \"studentId\" : \"$studentId\", \"lessonId\" : \"${lessonId}\" }")
+            Fuel.put(activity.getString(R.string.applicationsUrl) + "/$applicationId",
+                    listOf(
+                            "studentId" to studentId,
+                            "lessonId" to lessonId
+                    ))
                     .responseJson { request, response, result ->
                         when (result) {
                             is Result.Failure -> {
