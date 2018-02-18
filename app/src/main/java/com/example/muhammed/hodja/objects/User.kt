@@ -8,12 +8,18 @@ class User {
 
     var _id: String
     var name: String
-    var email: String?
-    var phone: String?
+    var email: String? = null
+    var phone: String? = null
     var photoUrl: String?
-    var about: String?
-    var languages: ArrayList<String>?
-    var location: LatLng?
+    var about: String? = null
+    var languages: ArrayList<String>? = null
+    var location: LatLng? = null
+
+    constructor(_id: String, name: String, photoUrl: String) {
+        this._id = _id
+        this.name = name
+        this.photoUrl = photoUrl
+    }
 
     constructor(jsonObject: JSONObject) {
         _id = getPropertyFromJsonObject<String>(jsonObject, "_id")!!

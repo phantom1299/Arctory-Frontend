@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Hodja</string>
+
+    <string name="home">Anasayfa</string>
+    <string name="myStudents">Öğrencilerim</string>
+    <string name="chats">Sohbetler</string>
+    <string name="more">Daha fazla…</string>
+    <string name="settings">Ayarlar</string>
+    <string name="help">Yardım</string>
+
+    <string name="filters">Filtreler</string>
+    <string name="maxFee">Maksimum Ücret</string>
+    <string name="maxDistance">Maksimum Mesafe</string>
+    <string name="gender">Cinsiyet</string>
+    <string name="language">Dil</string>
+    <string name="meetingPoint">Buluşma Noktası</string>
+    <string name="filter">Filtrele</string>
+    <string name="autobiography">Özgeçmiş</string>
+    <string name="exp">Tecrübe</string>
+    <string name="edu">Eğitim</string>
+
+    <string-array name="genders">
+        <item>Fark Etmez</item>
+        <item>Erkek</item>
+        <item>Kadın</item>
+    </string-array>
+
+    <string-array name="languages">
+        <item>Türkçe</item>
+        <item>İngilizce</item>
+        <item>Almanca</item>
+    </string-array>
+
+    <string-array name="meetingPoints">
+        <item>Farketmez</item>
+        <item>Öğretmen</item>
+        <item>Öğrenci</item>
+    </string-array>
+</resources>

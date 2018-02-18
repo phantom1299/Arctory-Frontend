@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.muhammed.hodja.fragments.HomeFragment
+import com.example.muhammed.hodja.fragments.StudentFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -73,7 +74,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 manager.beginTransaction().replace(R.id.mainLayout, homeFragment).commit()
             }
             R.id.nav_myStudents -> {
-
+                val studentFragment = StudentFragment()
+                val manager = supportFragmentManager
+                manager.beginTransaction().replace(R.id.mainLayout, studentFragment).commit()
             }
             R.id.nav_chats -> {
 

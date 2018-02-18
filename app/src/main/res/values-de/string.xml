@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Hodja</string>
+
+    <string name="home">Zuhause</string>
+    <string name="myStudents">Meine Studenten</string>
+    <string name="chats">Chats</string>
+    <string name="more">Mehr…</string>
+    <string name="settings">Einstellungen</string>
+    <string name="help">Hilfe</string>
+
+    <string name="filters">Filter</string>
+    <string name="maxFee">Maximale Gebühr</string>
+    <string name="maxDistance">Maximale Entfernung</string>
+    <string name="gender">Geschlecht</string>
+    <string name="language">Zunge</string>
+    <string name="meetingPoint">Treffpunkt</string>
+    <string name="filter">Filter</string>
+    <string name="autobiography">Zusammenfassung</string>
+    <string name="exp">Erfahrung</string>
+    <string name="edu">Studium</string>
+
+    <string-array name="genders">
+        <item>irgendein</item>
+        <item>männlich</item>
+        <item>weiblich</item>
+    </string-array>
+
+    <string-array name="languages">
+        <item>Türkisch</item>
+        <item>Englisch</item>
+        <item>Deutsche</item>
+    </string-array>
+
+    <string-array name="meetingPoints">
+        <item>irgendein</item>
+        <item>Lehrer</item>
+        <item>Schüler</item>
+    </string-array>
+</resources>

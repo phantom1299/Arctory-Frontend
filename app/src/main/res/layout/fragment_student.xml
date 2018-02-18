@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Başvurular"
+            android:textStyle="bold" />
+
+        <GridView
+            android:id="@+id/applicationGridView"
+            android:layout_width="match_parent"
+            android:layout_height="235dp"
+            android:columnWidth="100dp"
+            android:horizontalSpacing="10dp"
+            android:minHeight="100dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="10dp"></GridView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Öğrenciler"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/userListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
