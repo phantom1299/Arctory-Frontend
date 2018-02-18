@@ -302,7 +302,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         markerOptions
                 .position(LatLng(STUDENT_LOCATION.get(0), STUDENT_LOCATION.get(1)))
-                .title("Başlangıç")
+                .title("Siz")
                 .icon(BitmapDescriptorFactory.fromBitmap(getBitmapResized(R.drawable.student_map_icon, 200, 200)))
 
         map!!.addMarker(markerOptions)

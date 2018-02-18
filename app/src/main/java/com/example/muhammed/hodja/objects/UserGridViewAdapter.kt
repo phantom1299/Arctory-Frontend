@@ -11,13 +11,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.muhammed.hodja.objects.User
 
-
-/**
- * Created by ogrenci on 18.02.2018.
- */
 class UserGridViewAdapter(
         private var activity: Activity,
         private var applications: ArrayList<User>
+        private var applicationIds: ArrayList<String>
 ) : BaseAdapter() {
 
     private class ViewHolder(row: View?) {
@@ -53,14 +50,15 @@ class UserGridViewAdapter(
         }
 
         val application = applications[position]
+        val applicationId = applicationIds[position]
 
-        viewHolder.nameLabel?.text = application.name
+        viewHolder.nameLabel?.text = "Başvuran Adı"
 
         // ImageView ı burada setle, fotoğrafı internetten indirmek gerek
-        //
 
         viewHolder.acceptButton?.setOnClickListener {
             // Application kabul etme isteğini burada gönder
+
         }
 
         viewHolder.rejectButton?.setOnClickListener {

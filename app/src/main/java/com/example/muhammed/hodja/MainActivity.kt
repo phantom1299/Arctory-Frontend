@@ -49,7 +49,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
+            R.id.action_share -> return true
+            R.id.action_report -> return true
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -74,7 +75,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 manager.beginTransaction().replace(R.id.mainLayout, homeFragment).commit()
             }
             R.id.nav_myStudents -> {
+                // Supply index input as an argument.
                 val studentFragment = StudentFragment()
+                val args = Bundle();
+                args.putString("_id", "5a87f683a650a9d86413443c");
+                studentFragment.setArguments(args);
                 val manager = supportFragmentManager
                 manager.beginTransaction().replace(R.id.mainLayout, studentFragment).commit()
             }

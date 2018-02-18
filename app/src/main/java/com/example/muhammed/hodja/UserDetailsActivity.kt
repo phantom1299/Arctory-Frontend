@@ -3,6 +3,8 @@ package com.example.muhammed.hodja
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ListView
 import android.widget.TextView
 import com.example.muhammed.hodja.objects.User
@@ -30,6 +32,23 @@ class UserDetailsActivity : AppCompatActivity() {
         getUserDetails(_id)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        when (item.itemId) {
+            R.id.action_share -> return true
+            R.id.action_report -> return true
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
     fun getUserDetails(_id: String) {
         Fuel.get(getString(R.string.usersUrl) + "/$_id").responseJson { request, response, result ->
             when (result) {
@@ -41,6 +60,7 @@ class UserDetailsActivity : AppCompatActivity() {
                 }
             }
         }
+
         Fuel.get(getString(R.string.usersUrl) + "/$_id/lessonsGiven").responseJson { request, response, result ->
             when (result) {
                 is Result.Failure -> {

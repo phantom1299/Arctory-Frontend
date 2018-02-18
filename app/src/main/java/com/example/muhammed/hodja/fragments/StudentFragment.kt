@@ -13,48 +13,75 @@ import com.example.muhammed.hodja.R
 import com.example.muhammed.hodja.UserAdapter
 import com.example.muhammed.hodja.UserGridViewAdapter
 import com.example.muhammed.hodja.objects.User
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.android.extension.responseJson
+import com.github.kittinunf.result.Result
+import org.json.JSONArray
+import org.json.JSONObject
 
 
-/**
- * A simple [Fragment] subclass.
- */
 class StudentFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        val args = arguments
+        val _id = args.getString("_id")
+        getData(_id)
+
         val v = inflater!!.inflate(R.layout.fragment_student, container, false)
 
-        var adapter = UserAdapter(activity, generateData())
-        var listView = v.findViewById<ListView>(R.id.userListView)
 
-        listView.adapter = adapter
 
-        adapter.notifyDataSetChanged()
-
-        // Gridview
-
-        var gridView = v.findViewById<GridView>(R.id.applicationGridView)
-        var adapter2 = UserGridViewAdapter(activity, generateData())
-
-        gridView.adapter = adapter2
-
-        adapter2.notifyDataSetChanged()
         // Inflate the layout for this fragment
         return v
     }
 
-    fun generateData(): ArrayList<User> {
-        var temp = ArrayList<User>()
+    fun getData(_id: String) {
+        Fuel.get(getString(R.string.applicationsUrl) + "?userId=$_id").responseJson { request, response, result ->
+            when (result) {
+                is Result.Failure -> {
+                }
+                is Result.Success -> {
+                    val resultArray = result.value.array() //JSONObj
+                    populateApplicants(resultArray)
+                }
+            }
+        }
+    }
 
-        temp.add(User("1234", "Emircan Kavas", ""))
-        temp.add(User("1234", "Bahaeddin Aydemir", ""))
-        temp.add(User("1234", "Bahaeddin Aydemir", ""))
-        temp.add(User("1234", "Bahaeddin Aydemir", ""))
-        temp.add(User("1234", "Bahaeddin Aydemir", ""))
-        temp.add(User("1234", "Bahaeddin Aydemir", ""))
+    fun populateApplicants(jsonArray: JSONArray) {
+        val applicantIds = ArrayList<String>()
+        val applicants = ArrayList<User>()
+        for (i in 0..(jsonArray.length() - 1)) {
+            val applicationId = (jsonArray.get(i) as JSONObject).getString("_id")
+            val studentId = (jsonArray.get(i) as JSONObject).getString("student")
 
-        return temp
+            val applicant = User(studentId, activity)
+            applicants.add(applicant)
+            applicantIds.add(studentId)
+        }
+        val gridView = activity.findViewById<GridView>(R.id.applicationGridView)
+        val adapter2 = UserGridViewAdapter(activity, applicants, applicantIds)
+
+        gridView.adapter = adapter2
+
+        adapter2.notifyDataSetChanged()
+    }
+
+    fun populateStudents(jsonArray: JSONArray) {
+
+        val students = ArrayList<User>()
+        for (i in 0..(jsonArray.length() - 1)) {
+            val applicant = User(jsonArray.get(i) as JSONObject)
+            students.add(applicant)
+        }
+        val gridView = activity.findViewById<ListView>(R.id.userListView)
+        val adapter = UserAdapter(activity, students)
+
+        gridView.adapter = adapter
+
+        adapter.notifyDataSetChanged()
     }
 
 }// Required empty public constructor
