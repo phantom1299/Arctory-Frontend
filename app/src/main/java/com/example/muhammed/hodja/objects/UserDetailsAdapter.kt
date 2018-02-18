@@ -1,4 +1,4 @@
-package com.example.muhammed.hodja
+package com.example.muhammed.hodja.objects
 
 import android.app.Activity
 import android.content.Context
@@ -8,15 +8,12 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.muhammed.hodja.objects.UserDetail
+import com.example.muhammed.hodja.R
+import java.util.*
 
-
-/**
- * Created by ogrenci on 18.02.2018.
- */
 class UserDetailsAdapter(
         private var activity: Activity,
-        private var userDetails: ArrayList<UserDetail>
+        private var userDetails: ArrayList<UserDetail>?
 ) : BaseAdapter() {
 
     private class ViewHolder(row: View?) {
@@ -25,7 +22,7 @@ class UserDetailsAdapter(
         var imageView: ImageView? = null
 
         init {
-            nameLabel = row?.findViewById(R.id.nameLabel)
+            nameLabel = row?.findViewById(R.id.schoolNameLabel)
             detailLabel = row?.findViewById(R.id.detailLabel)
             imageView = row?.findViewById(R.id.profilePhoto)
         }
@@ -36,7 +33,7 @@ class UserDetailsAdapter(
         val viewHolder: ViewHolder
 
         if (convertView == null) {
-            val inflater = activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
             view = inflater.inflate(R.layout.list_item_user_details, null)
 
@@ -46,13 +43,22 @@ class UserDetailsAdapter(
         } else {
             view = convertView
 
-            viewHolder = view?.tag as ViewHolder
+            viewHolder = view.tag as ViewHolder
         }
 
-        val detail = userDetails[position]
+        val detail = userDetails?.get(position)
 
-        viewHolder.nameLabel?.text = detail.name
-        viewHolder.detailLabel?.text = detail.startDate + "-" + detail.finishDate
+        viewHolder.nameLabel?.text = detail?.name
+
+        var detailLabel = ""
+        if (detail?.startDate != null) {
+            detailLabel = detail.startDate!!.substring(0, Math.min(detail.startDate!!.length, 4))
+        }
+
+        if (detail?.finishDate != null) {
+            detailLabel += " - " + detail.startDate!!.substring(0, Math.min(detail.finishDate!!.length, 4))
+        }
+        viewHolder.detailLabel?.text = detailLabel
 
         // ImageView ı burada setle, fotoğrafı internetten indirmek gerek
 
@@ -64,11 +70,17 @@ class UserDetailsAdapter(
     }
 
     override fun getItem(position: Int): Any {
-        return userDetails[position]
+        if (userDetails != null)
+            return userDetails!![position]
+
+        return ArrayList<UserDetail>()
     }
 
     override fun getCount(): Int {
-        return userDetails.size
+        if (userDetails != null)
+            return userDetails!!.size
+
+        return 0
     }
 
 }

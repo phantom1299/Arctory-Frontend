@@ -18,6 +18,12 @@
     <string name="autobiography">Özgeçmiş</string>
     <string name="exp">Tecrübe</string>
     <string name="edu">Eğitim</string>
+    <string name="lesson">Dersler</string>
+    <string name="languages">Diller</string>
+
+    <string name="tr">Türkçe</string>
+    <string name="en">İngilizce</string>
+    <string name="de">Almanca</string>
 
     <string-array name="genders">
         <item>Fark Etmez</item>

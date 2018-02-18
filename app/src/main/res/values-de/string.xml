@@ -12,17 +12,23 @@
     <string name="maxFee">Maximale Gebühr</string>
     <string name="maxDistance">Maximale Entfernung</string>
     <string name="gender">Geschlecht</string>
-    <string name="language">Zunge</string>
+    <string name="language">Sprache</string>
     <string name="meetingPoint">Treffpunkt</string>
     <string name="filter">Filter</string>
     <string name="autobiography">Zusammenfassung</string>
     <string name="exp">Erfahrung</string>
     <string name="edu">Studium</string>
+    <string name="lesson">Unterichte</string>
+    <string name="languages">Sprachen</string>
+
+    <string name="tr">Türkish</string>
+    <string name="en">English</string>
+    <string name="de">Deutsch</string>
 
     <string-array name="genders">
-        <item>irgendein</item>
-        <item>männlich</item>
-        <item>weiblich</item>
+        <item>Egal</item>
+        <item>Männlich</item>
+        <item>Weiblich</item>
     </string-array>
 
     <string-array name="languages">
@@ -32,7 +38,7 @@
     </string-array>
 
     <string-array name="meetingPoints">
-        <item>irgendein</item>
+        <item>Egal</item>
         <item>Lehrer</item>
         <item>Schüler</item>
     </string-array>

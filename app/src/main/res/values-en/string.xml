@@ -15,9 +15,15 @@
     <string name="language">Language</string>
     <string name="meetingPoint">Meeting Point</string>
     <string name="filter">Filter</string>
-    <string name="autobiography">Resume</string>
+    <string name="autobiography">About</string>
     <string name="exp">Experience</string>
     <string name="edu">Education</string>
+    <string name="lesson">Lessons</string>
+    <string name="languages">Languages</string>
+
+    <string name="tr">Turkish</string>
+    <string name="en">English</string>
+    <string name="de">German</string>
 
     <string-array name="genders">
         <item>Any</item>

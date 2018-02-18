@@ -12,6 +12,8 @@ class User {
     var phone: String? = null
     var photoUrl: String?
     var about: String? = null
+    var education: ArrayList<UserDetail>? = null
+    var experiences: ArrayList<UserDetail>? = null
     var languages: ArrayList<String>? = null
     var location: LatLng? = null
 
@@ -30,6 +32,12 @@ class User {
         photoUrl = getPropertyFromJsonObject<String>(jsonObject, "photoUrl")
         about = getPropertyFromJsonObject<String>(jsonObject, "about")
 
+        experiences = convertJSONArrayToObjectArray(
+                getPropertyFromJsonObject<JSONArray>(jsonObject, "experiences"))
+
+        education = convertJSONArrayToObjectArray(
+                getPropertyFromJsonObject<JSONArray>(jsonObject, "education"))
+
         languages = convertJSONArrayToArrayList(
                 getPropertyFromJsonObject<JSONArray>(jsonObject, "languages"))
 
@@ -45,6 +53,19 @@ class User {
 
         for (i in 0..jsonArr.length() - 1) {
             result.add(jsonArr.get(i) as String)
+        }
+
+        return result
+    }
+
+    fun convertJSONArrayToObjectArray(jsonArr: JSONArray?): ArrayList<UserDetail>? {
+        if (jsonArr == null)
+            return null
+
+        val result = ArrayList<UserDetail>()
+
+        for (i in 0..jsonArr.length() - 1) {
+            result.add(UserDetail(jsonArr.get(i) as JSONObject))
         }
 
         return result
