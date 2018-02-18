@@ -26,6 +26,9 @@
     <string name="share">Paylaş</string>
     <string name="report">Şikayet Et</string>
 
+    <string name="applicationAcceptFailed">Başvuru onaylanamadı. Lütfen tekrar deneyin.</string>
+    <string name="applicationAcceptSuccess">Başvuru başarıyla onaylandı.</string>
+
     <string name="tr">Türkçe</string>
     <string name="en">İngilizce</string>
     <string name="de">Almanca</string>

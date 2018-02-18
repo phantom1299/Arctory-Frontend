@@ -38,6 +38,7 @@ class StudentFragment : Fragment() {
     }
 
     fun getData(_id: String) {
+        // Başvuruları çek
         Fuel.get(getString(R.string.applicationsUrl) + "?userId=$_id").responseJson { request, response, result ->
             when (result) {
                 is Result.Failure -> {
@@ -48,21 +49,37 @@ class StudentFragment : Fragment() {
                 }
             }
         }
+        // Öğrencileri Çek
+        Fuel.get(getString(R.string.usersUrl) + "/5a87f747a650a9d8641348fc/students").responseJson { request, response, result ->
+            when (result) {
+                is Result.Failure -> {
+                }
+                is Result.Success -> {
+                    val resultArray = result.value.array() //JSONObj
+                    populateStudents(resultArray)
+                }
+            }
+        }
     }
 
     fun populateApplicants(jsonArray: JSONArray) {
         val applicantIds = ArrayList<String>()
+        val lessonIds = ArrayList<String>()
+        val studentIds = ArrayList<String>()
         val applicants = ArrayList<User>()
         for (i in 0..(jsonArray.length() - 1)) {
             val applicationId = (jsonArray.get(i) as JSONObject).getString("_id")
+            val lessonId = (jsonArray.get(i) as JSONObject).getString("lesson")
             val studentId = (jsonArray.get(i) as JSONObject).getString("student")
 
             val applicant = User(studentId, activity)
             applicants.add(applicant)
-            applicantIds.add(studentId)
+            applicantIds.add(applicationId)
+            lessonIds.add(lessonId)
+            studentIds.add(studentId)
         }
         val gridView = activity.findViewById<GridView>(R.id.applicationGridView)
-        val adapter2 = UserGridViewAdapter(activity, applicants, applicantIds)
+        val adapter2 = UserGridViewAdapter(activity, applicants, applicantIds, lessonIds, studentIds)
 
         gridView.adapter = adapter2
 
@@ -70,16 +87,24 @@ class StudentFragment : Fragment() {
     }
 
     fun populateStudents(jsonArray: JSONArray) {
-
         val students = ArrayList<User>()
-        for (i in 0..(jsonArray.length() - 1)) {
-            val applicant = User(jsonArray.get(i) as JSONObject)
-            students.add(applicant)
+
+        for (i in 0..jsonArray.length() - 1) {
+            val obj = jsonArray.get(i) as JSONObject
+
+            val studentsJsonArray = obj.getJSONArray("students")
+
+            for (j in 0..(studentsJsonArray.length() - 1)) {
+                val studentJsonObj = studentsJsonArray.getJSONObject(j)
+                val student = User(studentJsonObj)
+                students.add(student)
+            }
         }
-        val gridView = activity.findViewById<ListView>(R.id.userListView)
+
+        val listView = activity.findViewById<ListView>(R.id.userListView)
         val adapter = UserAdapter(activity, students)
 
-        gridView.adapter = adapter
+        listView.adapter = adapter
 
         adapter.notifyDataSetChanged()
     }

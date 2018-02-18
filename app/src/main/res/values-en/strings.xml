@@ -23,6 +23,9 @@
     <string name="share">Share</string>
     <string name="report">Report</string>
 
+    <string name="applicationAcceptFailed">Application has failed. Please try again.</string>
+    <string name="applicationAcceptSuccess">Application was successfully accepted.</string>
+
     <string name="tr">Turkish</string>
     <string name="en">English</string>
     <string name="de">German</string>

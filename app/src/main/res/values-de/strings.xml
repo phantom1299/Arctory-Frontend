@@ -23,6 +23,9 @@
     <string name="share">Teilen</string>
     <string name="report">Melden</string>
 
+    <string name="applicationAcceptFailed">Anmeldung fehlgeschlagen. Bitte versuchen sie es nochmal.</string>
+    <string name="applicationAcceptSuccess">Anmeldung wurde erfolgreich akzeptiert.</string>
+
     <string name="tr">Türkish</string>
     <string name="en">English</string>
     <string name="de">Deutsch</string>
