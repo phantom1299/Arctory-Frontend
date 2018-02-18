@@ -1,11 +1,7 @@
 <resources>
     <string name="app_name">Hodja</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
-    <string name="home">Ana Sayfa</string>
+    <string name="home">Anasayfa</string>
     <string name="myStudents">Öğrencilerim</string>
     <string name="chats">Sohbetler</string>
     <string name="more">Daha fazla…</string>
@@ -20,6 +16,14 @@
     <string name="meetingPoint">Buluşma Noktası</string>
     <string name="filter">Filtrele</string>
     <string name="autobiography">Özgeçmiş</string>
+    <string name="exp">Tecrübe</string>
+    <string name="edu">Eğitim</string>
+    <string name="lesson">Dersler</string>
+    <string name="languages">Diller</string>
+
+    <string name="tr">Türkçe</string>
+    <string name="en">İngilizce</string>
+    <string name="de">Almanca</string>
 
     <string-array name="genders">
         <item>Fark Etmez</item>
@@ -38,10 +42,4 @@
         <item>Öğretmen</item>
         <item>Öğrenci</item>
     </string-array>
-
-    <string name="title_activity_user_details">User Details</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>

@@ -12,6 +12,7 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.android.extension.responseJson
 import com.github.kittinunf.result.Result
 import kotlinx.android.synthetic.main.activity_user_details.*
+import org.json.JSONArray
 import org.json.JSONObject
 
 class UserDetailsActivity : AppCompatActivity() {
@@ -40,6 +41,31 @@ class UserDetailsActivity : AppCompatActivity() {
                 }
             }
         }
+        Fuel.get(getString(R.string.usersUrl) + "/$_id/lessonsGiven").responseJson { request, response, result ->
+            when (result) {
+                is Result.Failure -> {
+                }
+                is Result.Success -> {
+                    val resultArray = result.value.array() //JSONObj
+                    val lessonsGiven = convertJsonArrayToArrayList(resultArray)
+
+                    val lessonListView = findViewById<ListView>(R.id.lessonListView)
+                    val lessonAdapter = UserDetailsLanguageAdapter(this, lessonsGiven)
+                    lessonListView.adapter = lessonAdapter
+                    lessonAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+    }
+
+    fun convertJsonArrayToArrayList(jsonArray: JSONArray): ArrayList<String> {
+        val result = ArrayList<String>()
+        for (i in 0..jsonArray.length() - 1) {
+            val lesson = jsonArray.get(i) as JSONObject
+            result.add(lesson.getString("name"))
+        }
+
+        return result;
     }
 
     fun handleResponse(jsonObject: JSONObject) {
@@ -47,6 +73,9 @@ class UserDetailsActivity : AppCompatActivity() {
 
         val nameLabel = findViewById<TextView>(R.id.userNameLabel)
         nameLabel.text = user.name
+
+        // val profilePhoto = findViewById<ImageView>(R.id.userProfilePhoto)
+        // profilePhoto.setImageURI(Uri.parse(user.photoUrl))
 
         val aboutLabel = findViewById<TextView>(R.id.aboutLabel)
         aboutLabel.text = user.about
@@ -60,11 +89,6 @@ class UserDetailsActivity : AppCompatActivity() {
         val eduAdapter = UserDetailsAdapter(this, user.education)
         eduListView.adapter = eduAdapter
         eduAdapter.notifyDataSetChanged()
-
-        val lessonListView = findViewById<ListView>(R.id.lessonListView)
-        val lessonAdapter = UserDetailsLanguageAdapter(this, arrayListOf("Matematik", "Keman"))
-        lessonListView.adapter = lessonAdapter
-        lessonAdapter.notifyDataSetChanged()
 
         val langListView = findViewById<ListView>(R.id.languagesListView)
         val langAdapter = UserDetailsLanguageAdapter(this, user.languages)
