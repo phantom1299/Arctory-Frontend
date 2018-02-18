@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Hodja</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="home">Anasayfa</string>
     <string name="myStudents">Öğrencilerim</string>
     <string name="chats">Sohbetler</string>
@@ -24,6 +27,9 @@
     <string name="tr">Türkçe</string>
     <string name="en">İngilizce</string>
     <string name="de">Almanca</string>
+
+    <string name="title_activity_user_details">Kullanıcı Detayları</string>
+    <string name="distance_range"><![CDATA[<5 km]]></string>
 
     <string-array name="genders">
         <item>Fark Etmez</item>

@@ -25,6 +25,8 @@
     <string name="en">İngilizce</string>
     <string name="de">Almanca</string>
 
+    <string name="title_activity_user_details">Kullanıcı Detayları</string>
+
     <string-array name="genders">
         <item>Fark Etmez</item>
         <item>Erkek</item>

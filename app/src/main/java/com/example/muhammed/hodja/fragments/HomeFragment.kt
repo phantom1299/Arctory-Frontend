@@ -72,7 +72,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                                             STUDENT_LOCATION.get(0),
                                             STUDENT_LOCATION.get(1)
                                     ),
-                                    12.0f
+                                    14.0f
                             )
             )
         }
@@ -219,7 +219,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         map!!.addMarker(option)
         map!!.moveCamera(CameraUpdateFactory.newLatLng(pp))
-        map!!.animateCamera(CameraUpdateFactory.newLatLngZoom(pp, 12.0f))
+        map!!.animateCamera(CameraUpdateFactory.newLatLngZoom(pp, 14.0f))
 
         getData()
     }

@@ -25,6 +25,8 @@
     <string name="en">English</string>
     <string name="de">German</string>
 
+    <string name="title_activity_user_details">User Details</string>
+
     <string-array name="genders">
         <item>Any</item>
         <item>Male</item>
